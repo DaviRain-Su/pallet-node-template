@@ -1,10 +1,22 @@
 # pallet-ibc
 
+## install 
+
+# Install
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+
+# Configure
+source ~/.cargo/env
+
+rustup default stable
+rustup update
+rustup update nightly
+rustup target add wasm32-unknown-unknown --toolchain nightly
+
 
 ## Check no_std
 
 ```
-
 pallet-ibc  🍣 main 🛤️  ×1🦀 v1.58.0-nightly 🐏 7GiB/8GiB | 8GiB/9GiB
 🕙 14:32:20 ❯ make check
 cargo check --no-default-features --target=wasm32-unknown-unknown
@@ -32,5 +44,4 @@ error[E0152]: found duplicate lang item `oom`
 For more information about this error, try `rustc --explain E0152`.
 error: could not compile `sp-io` due to 2 previous errors
 make: *** [check] Error 101
-
 ```
