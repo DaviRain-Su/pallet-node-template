@@ -1,4 +1,4 @@
-# pallet-ibc
+# 测试一个pallet-node-template 是否支持no_std
 
 
 这个项目是用来测试pallet-node-template是否支持no_std,
