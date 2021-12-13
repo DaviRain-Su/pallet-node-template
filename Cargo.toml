@@ -1,0 +1,58 @@
+[package]
+name = "pallet-ibc"
+version = "4.0.0-pre.0"
+edition = "2018"
+authors = ["Octopus Network <hi@oct.network>"]
+license = "Apache-2.0"
+homepage = "https://oct.network"
+repository = "https://github.com/octopus-network/octopus-pallets.git"
+description = "FRAME pallet for joining the octopus network as an appchain."
+readme = "README.md"
+documentation = "https://docs.rs/pallet-octopus-appchain"
+
+[package.metadata.docs.rs]
+targets = ["x86_64-unknown-linux-gnu"]
+
+[dependencies]
+base64 = { version = "0.13", default-features = false, features = ["alloc"] }
+borsh = { version = "0.9.0", default-features = false }
+codec = { package = "parity-scale-codec", version = "2.0.0", default-features = false, features = ["derive"] }
+hex = { version = "0.4", default-features = false, features = ["alloc"] }
+log = { version = "0.4.0", default-features = false }
+scale-info = { version = "1.0", default-features = false, features = ["derive"] }
+serde = { version = "1.0.126", default-features = false, features = ["derive"] }
+serde_bytes = { version = "0.11", default-features = false, features = ["alloc"] }
+serde_json = { version = "1.0", default-features = false, features = ["alloc"] }
+
+frame-benchmarking = { git = "https://github.com/paritytech/substrate.git", branch = "polkadot-v0.9.12", default-features = false, optional = true }
+frame-support = { git = "https://github.com/paritytech/substrate.git", branch = "polkadot-v0.9.12", default-features = false }
+frame-system = { git = "https://github.com/paritytech/substrate.git", branch = "polkadot-v0.9.12", default-features = false }
+sp-core = { git = "https://github.com/paritytech/substrate.git", branch = "polkadot-v0.9.12", default-features = false }
+sp-io = { git = "https://github.com/paritytech/substrate.git", branch = "polkadot-v0.9.12", default-features = false }
+sp-runtime = { git = "https://github.com/paritytech/substrate.git", branch = "polkadot-v0.9.12", default-features = false }
+sp-std = { git = "https://github.com/paritytech/substrate.git", branch = "polkadot-v0.9.12", default-features = false }
+
+
+[features]
+default = ["std"]
+std = [
+	"base64/std",
+	"borsh/std",
+	"codec/std",
+	"hex/std",
+	"log/std",
+	"scale-info/std",
+	"serde/std",
+	"serde_bytes/std",
+	"serde_json/std",
+	"frame-benchmarking/std",
+	"frame-support/std",
+	"frame-system/std",
+	"sp-core/std",
+	"sp-io/std",
+	"sp-runtime/std",
+	"sp-std/std",
+]
+
+runtime-benchmarks = ["frame-benchmarking"]
+try-runtime = ["frame-support/try-runtime"]
