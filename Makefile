@@ -5,7 +5,7 @@ install:
 	# Configure
 	source ~/.cargo/env
 
-	rustup default stable
+	rustup default nightly
 	rustup update
 	rustup update nightly
 	rustup target add wasm32-unknown-unknown --toolchain nightly
