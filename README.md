@@ -1,20 +1,21 @@
 # pallet-ibc
 
-## install 
 
-# Install
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+这个项目是用来测试pallet-node-template是否支持no_std,
 
-# Configure
-source ~/.cargo/env
+使用 `cargo check --no-default-features --target=wasm32-unknown-unknown` 用来测试一个pallet是否支持no_std.
 
-rustup default stable
-rustup update
-rustup update nightly
-rustup target add wasm32-unknown-unknown --toolchain nightly
+这是询问parity上的作者回答的解决办法:https://github.com/paritytech/substrate/issues/10477
+
+这里说需要将 Cargo.toml中的version替换成2021，  **use edition = "2021" instead of edition = "2018"**。
 
 
-## Check no_std
+## 第一种测试pallet是否支持no_std的方法，Check no_std
+
+
+这是之前没有修改version的版本编译出错的情况。 
+成功的情况下应该是在version = "2021"的情况下，使用`cargo check --no-default-features --target=wasm32-unknown-unknown` 
+测试是否支持no_std.
 
 ```
 pallet-ibc  🍣 main 🛤️  ×1🦀 v1.58.0-nightly 🐏 7GiB/8GiB | 8GiB/9GiB
@@ -44,4 +45,29 @@ error[E0152]: found duplicate lang item `oom`
 For more information about this error, try `rustc --explain E0152`.
 error: could not compile `sp-io` due to 2 previous errors
 make: *** [check] Error 101
+```
+
+
+## 第二种方式测试pallet支持no_std的方式使用`substrate-wasm-builder`
+
+通过添加`substrate-wasm-builder`来帮助测试一个pallet是否支持no_std.
+
+1. 在Cargo.toml的 [package] 中添加build = "build.rs" 键值对。
+2. 在Cato.toml中添加substrate-wasm-builder依赖
+```shell
+[build-dependencies.substrate-wasm-builder]
+branch = 'polkadot-v0.9.12'
+git    = 'https://github.com/paritytech/substrate.git'
+```
+3.在项目的顶层目录中添加build.rs文件，以及内容。
+```rust
+use substrate_wasm_builder::WasmBuilder;
+
+fn main() {
+    WasmBuilder::new()
+        .with_current_project()
+        .export_heap_base()
+        .import_memory()
+        .build()
+}
 ```
